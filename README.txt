@@ -4,6 +4,28 @@ The Infinite Gaussian Mixture Model
 Prof. Tony Jebara
 May 5, 2005
 
+For my final project in Tony Jebara's Machine Learning course, cs4771,
+I implemented Carl Rasmussen's Infinite Gaussian Mixture Model. I got
+it working for both univariate and multivariate data. I'd like to see
+what it does when presented with MFCC frames from music and
+audio. There were some tricky parts of implementing it, I wrote them
+up in a short paper describing my implementation. Since I've gotten
+the multivariate case working, I'll trust you to ignore all statements
+to the contrary in the paper. The IGMM requires Adaptive Rejection
+Sampling to sample the posteriors of some of its parameters, so I
+implemented that as well. Thanks to Siddharth Gopal for a bugfix.
+ 
+See also:
+
+The paper I wrote about implementing it:
+  http://mr-pc.org/work/cs4771igmm.pdf
+
+Jacob Eisenstein's Dirichlet process mixture model, which adds some
+cool features to the infinite GMM.
+  http://people.csail.mit.edu/jacobe/software.html
+
+=====================================================
+
 In order to generate the test data used in the paper, just make this
 call in matlab:
 [Y,z] = drawGmm([-3 3], [1 10], [1 2], 500);
