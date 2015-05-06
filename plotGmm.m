@@ -49,26 +49,30 @@ if(D == 1)
   if(nargin > 1) hold off; end
 
 elseif (D == 2)
-  clf
-  hold on
-  if(nargin > 1) plot(data(:,1), data(:,2), '.k'); end
+  if(nargin > 1) 
+      plot(data(:,1), data(:,2), '.k'); 
+      hold on
+  end
   w = gmm.pi / sum(gmm.pi);
   
   for i=1:size(gmm.mu,1);
     plotGauss2(gmm.mu(i,:), gmm.s(:,:,i), w(i));
+    hold on
   end
   hold off
 
 
 elseif (D == 3)
-  clf
   grid on
-  hold on
-  if(nargin > 1) scatter3(data(:,1), data(:,2), data(:,3), 2, 'b'); end
+  if(nargin > 1) 
+      scatter3(data(:,1), data(:,2), data(:,3), 2, 'b'); 
+      hold on
+  end
   w = gmm.pi / sum(gmm.pi);
   
   for i=1:size(gmm.mu,1);
     plotGauss3(gmm.mu(i,:), gmm.s(:,:,i), w(i));
+    hold on
   end
   hold off
 
@@ -86,20 +90,17 @@ function plotGauss2(mu,S,w)
 %This function plots the given 2D gaussian on the current plot.
  
 t = -pi:.01:pi;
-k = length(t);
 x = sin(t);
 y = cos(t);
  
-R = inv(S);
- 
-[vv,dd] = eig(R);
+[vv,dd] = eig(S);
 A = real((vv*sqrt(dd))');
 z = [x' y']*A;
- 
+
 hand = plot(mu(1),mu(2),'X');
-set(hand, 'Color', 1-[w w w]);
+set(hand, 'Color', 1-[w w w], 'LineWidth', 3);
 hand = plot(z(:,1)+mu(1),z(:,2)+mu(2));
-set(hand, 'Color', 1-[w w w]);
+set(hand, 'Color', 1-[w w w], 'LineWidth', 3);
 
 
 
