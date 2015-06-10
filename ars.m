@@ -101,7 +101,10 @@ while Nsamp < N
 
   % Update vectors if necessary
   if(length(x) < Nxmax)
-    [x,z,h,hprime,hu,sc,cu] = insert(x,xt,h,ht,hprime,hpt,support);
+      try
+        [x,z,h,hprime,hu,sc,cu] = insert(x,xt,h,ht,hprime,hpt,support);
+      catch ex
+      end
   end
 end
 
@@ -111,6 +114,15 @@ function [x, z, h, hprime, hu, sc, cu] = ...
     insert(x, xnew, h, hnew, hprime, hprimenew, support)
 % Insert xnew into x and update all other vectors to reflect the
 % new point's addition.
+%
+% From Wild & Gilks (1993)
+% x: points where function has been evaluated
+% z: points between x's where adjacent tangents intersect each other
+% h: values of log pdf at x's
+% hprime: slope of log pdf at x's
+% hu: values of log pdf at z's
+% sc: CDF of piecewise linear upper hull
+% cu: normalization constant for sc
 
 [x,order] = sort([x xnew]);
 h = [h hnew]; h = h(order);
@@ -124,4 +136,4 @@ hu = [hprime(1) hprime] .* (z - [x(1) x]) + [h(1) h];
 
 sc = [0 cumsum(diff(exp(hu)) ./ hprime)];
 cu = sc(end);
-
+assert(all(sc >= 0))

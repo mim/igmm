@@ -193,7 +193,7 @@ function x = drawGamma(shape, mean)
 x = gamrnd(shape/2, 2*mean./shape);
 
 
-function prt(debg, txt, num)
+function prt(debg, msg, num)
 % Print text and number to screen if debug is enabled.
 if(debg)
   disp([msg num2str(num)]);
